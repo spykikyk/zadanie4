@@ -1,0 +1,62 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+void print_array(int M[],  int N){
+	for (int i = 0; i < N; i++)
+		cout << M[i] << " ";
+	cout << endl;
+}
+
+void one(int N, int perv, int razn, int M[]){
+	for (int i = 0; i < N; i++){	
+		M[i] = perv;
+		perv = perv + razn;
+	}
+}
+
+void two(int M[], int N) {
+	srand(time(NULL));
+	for (int i = 0; i < N; i++){
+		M[i] = rand() % N + 1;
+		for (int j = 0; j < i; j++)
+			if (M[j] == M[i]){
+				i = i - 1;
+				break;}
+	}
+}
+
+void three(int M[], int N){
+	srand(time(0));
+	for (int i = 0; i < N; i++)
+		M[i] = rand() % 1000 + 1000;
+}
+
+void counter(int M[], int N){
+	int sum = 0;
+	for (int i = 0; i < N; i++)
+		if (((M[i] % 100) / 10) % 2 == 0)
+			sum = sum + 1;
+	cout << sum << endl;
+}
+
+int main(){
+	setlocale(LC_ALL, "Russian");
+	cout << "Введите размер массива: " << endl;
+	int N; int perv; int razn;
+	cin >> N;
+	cout << "Введите первый элемент и разность в первой задаче: " << endl;
+	cin >> perv >> razn;
+	int* M  = new int[N];
+	cout << "Ответ на первую задачу: " << endl;
+	one(N, perv, razn, M);
+	print_array(M, N);
+	cout << "Ответ на вторую задачу: " << endl;
+	two(M, N);
+	print_array(M, N);
+	cout << "Ответ на третью задачу: " << endl;
+	three(M, N);
+	print_array(M, N);
+	counter(M, N);
+	delete[] M;
+}
